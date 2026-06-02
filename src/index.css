@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* Reuses the slide keyframe defined below — 35s for category/product carousels */
+.animate-carousel {
+  animation: slide 35s linear infinite;
+}
+.animate-carousel:hover {
+  animation-play-state: paused;
+}
+
+body {
+  font-family: "Urbanist", sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+h1,
+h2 {
+  font-family: "Cormorant Upright", serif;
+}
+
+
+/* Top and bottom strip animation */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-slide {
+  animation: slide 20s linear infinite;
+}
+
+/* MAIN product slider animation */
+@keyframes productSlide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-product-slide {
+  animation: productSlide 25s linear infinite;
+}
+
+/* global.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axiosInstance from "../../service/api";
+
+export const SareesCategory = ({ initialData = undefined }) => {
+  const [subCategories, setSubCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (initialData !== undefined) {
+      if (initialData !== null) {
+        const data = initialData?.sub_categories || [];
+        const filtered = data.filter(
+          (item) => item.show_on_home === true && item.is_active === true
+        );
+        setSubCategories(filtered);
+        setLoading(false);
+      }
+      return;
+    }
+
+    axiosInstance
+      .get("/v1/categories/sarees/subcategories")
+      .then((res) => {
+        const data = res.data?.data?.sub_categories || [];
+        setSubCategories(data.filter((item) => item.show_on_home === true && item.is_active === true));
+      })
+      .catch((err) => console.error("Error fetching saree subcategories:", err))
+      .finally(() => setLoading(false));
+  }, [initialData]);
+
+  if (loading) {
+    return (
+      <div className="lg:min-h-screen p-4 md:p-8 font-serif">
+        <div className="mx-auto">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-6 lg:h-[650px]">
+            <div className="w-full h-[400px] sm:h-[450px] lg:h-full bg-gray-200 animate-pulse rounded" />
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4 lg:mt-0">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="aspect-square bg-gray-200 animate-pulse rounded" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!subCategories.length) return null;
+
+  const leftCategory  = subCategories[0];
+  const gridCategories = subCategories.slice(1, 5);
+
+  return (
+    <div className="lg:min-h-screen p-4 md:p-8 font-serif">
+      <div className="mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-6 lg:h-[650px]">
+
+          {leftCategory && (
+            <Link
+              to="/Categorydetail/sarees"
+              className="relative w-full h-[400px] sm:h-[450px] lg:h-full shadow-2xl overflow-hidden group cursor-pointer"
+            >
+              <img
+                src={leftCategory.image}
+                alt={leftCategory.name}
+                width={1664}
+                height={1664}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent flex items-end p-4 md:p-8">
+                <div className="text-white drop-shadow-2xl">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{leftCategory.name}</h2>
+                </div>
+              </div>
+            </Link>
+          )}
+
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4 lg:mt-0">
+            {gridCategories.map((item, idx) => (
+              <Link
+                key={idx}
+                to="/Categorydetail/sarees"
+                className="relative aspect-square shadow-xl overflow-hidden group cursor-pointer"
+              >
+                <img
+                  src={item.image || leftCategory.image}
+                  alt={item.name}
+                  width={1024}
+                  height={1024}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent flex items-end p-2 sm:p-3">
+                  <span className="text-white text-xs sm:text-sm font-semibold drop-shadow-md">{item.name}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};

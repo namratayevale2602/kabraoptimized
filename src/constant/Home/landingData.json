@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "title": "Celebrate Womanhood",
+    "subtitle": "This Women's Day",
+    "description": "Embrace your elegance with our exclusive Women's Day collection. Handcrafted sarees that tell your unique story.",
+    "primaryButtonText": "Shop Collection",
+    "secondaryButtonText": "Learn More",
+    "offerTag": "Flat 30% Off on Premium Sarees"
+  },
+  "form": {
+    "title": "Kabra Womens Day Campaign",
+    "subtitle": "Sign up for exclusive Women's Day offers",
+    "iframeSrc": "https://admin.masteraix.io/widget/form/69a53e0af2e7d"
+  }
+}

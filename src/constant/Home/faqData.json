@@ -1,0 +1,31 @@
+{
+  "sectionTitle": "Frequently Asked Questions",
+  "subtitle": "Everything you need to know about kabra Emporium",
+  "faqs": [
+    {
+      "id": 1,
+      "question": "What types of sarees does kabra Emporium offer?",
+      "answer": "kabra Emporium offers a wide range of sarees including wedding sarees, festive sarees, daily wear sarees, designer collections, and traditional handcrafted sarees."
+    },
+    {
+      "id": 2,
+      "question": "Do you offer customization or bulk orders?",
+      "answer": "Yes, we accept bulk orders and provide customization options depending on the requirement. Please contact our support team for detailed assistance."
+    },
+    {
+      "id": 3,
+      "question": "Where is kabra Emporium located?",
+      "answer": "kabra Emporium is located in Pandit Colony, Nashik, at the heart of the Vankar Textile Market."
+    },
+    {
+      "id": 4,
+      "question": "How can I place an order?",
+      "answer": "You can place an order by visiting our store or by contacting us through our official website or social media platforms."
+    },
+    {
+      "id": 5,
+      "question": "Do you provide shipping across India?",
+      "answer": "Yes, we provide reliable shipping services across India to ensure timely delivery of your sarees."
+    }
+  ]
+}

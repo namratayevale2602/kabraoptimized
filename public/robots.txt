@@ -1,0 +1,13 @@
+# robots.txt for Kabra Emporium
+User-agent: *
+Allow: /
+Sitemap: https://kabraemporium.com/sitemap.xml
+Crawl-delay: 10
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /account/
+Disallow: /api/
+Disallow: /*?*
+Disallow: /*sort=*
+Disallow: /*filter=*
