@@ -147,10 +147,7 @@ const ProductDetailsPage = () => {
     const fetchCategoryData = async () => {
       try {
         setLoading(true);
-        console.log('Fetching category with slug:', slug);
-        
         const response = await axiosInstance.get(`/v1/category/${slug}`);
-        console.log('API Response:', response.data);
         
         if (response.data?.success) {
           setCategoryData(response.data.data);

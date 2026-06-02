@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -55,7 +56,11 @@ function App() {
     ),
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <HelmetProvider>
+      <RouterProvider router={router} />
+    </HelmetProvider>
+  );
 }
 
 export default App;

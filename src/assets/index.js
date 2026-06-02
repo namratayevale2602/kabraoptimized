@@ -868,7 +868,7 @@ export {
 
 
 import hero1 from "./backgroundimg/01_saree_desktop.webp"
-import hero3 from "./backgroundimg/saree_desktop.jpg"
+import hero3 from "./backgroundimg/saree_desktop.webp"
 import hero2 from "./backgroundimg/website_banner_mobile_2.webp"
 import bannerimg1 from "./backgroundimg/bannerimg1.webp"
 import bannerimg2 from "./backgroundimg/bannerimg2.webp"

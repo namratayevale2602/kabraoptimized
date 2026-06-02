@@ -36,7 +36,6 @@ export const pageSEO = {
     keywords: "saree collection, paithani sarees, banarasi sarees, chanderi sarees, kanjivaram sarees, traditional sarees, authentic weaves",
     canonical: "/products",
   },
-  // Category details will be dynamic, but keeping a base structure
   categoryDetail: {
     title: "%category% Sarees | Authentic %category% Collection | Kabra Emporium",
     description: "Explore our authentic collection of %category% sarees. Handpicked with love and tradition, each saree reflects our three-generation legacy of trust and quality.",
@@ -75,7 +74,6 @@ export const pageSEO = {
     keywords: "contact kabra emporium, saree store location, bridal consultation, visit saree shop, traditional saree store",
     canonical: "/contact",
   },
-  // Contact branches
   contactPanditColony: {
     title: "Kabra Emporium Pandit Colony | Saree Store in Pandit Colony",
     description: "Visit Kabra Emporium at Pandit Colony. Experience our three-generation legacy of love, trust & tradition. Explore authentic Indian weaves at our Pandit Colony store.",
@@ -117,17 +115,17 @@ export const pageSEO = {
 export const getDynamicSEO = (pageType, params = {}) => {
   const seo = pageSEO[pageType];
   if (!seo) return pageSEO.home;
-  
+
   let title = seo.title;
   let description = seo.description;
   let keywords = seo.keywords;
-  
+
   Object.keys(params).forEach(key => {
     title = title.replace(`%${key}%`, params[key]);
     description = description.replace(`%${key}%`, params[key]);
     keywords = keywords.replace(`%${key}%`, params[key]);
   });
-  
+
   return {
     ...seo,
     title,

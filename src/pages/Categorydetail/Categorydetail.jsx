@@ -17,7 +17,6 @@ const ProductModal = ({ product, onClose, onEnquiry }) => {
         
         // First, check if the product already has all_images from the category response
         if (product.all_images && product.all_images.length > 0) {
-          console.log('Using images from category response:', product.all_images);
           setImages(product.all_images);
           setProductDetails(product);
           setLoading(false);
@@ -52,7 +51,6 @@ const ProductModal = ({ product, onClose, onEnquiry }) => {
           }
           
           setImages(processedImages);
-          console.log('Processed images from API:', processedImages);
         }
       } catch (err) {
         console.error('Error fetching product details:', err);

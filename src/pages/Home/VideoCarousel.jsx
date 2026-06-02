@@ -117,9 +117,7 @@ const VideoCarousel = () => {
         entries.forEach((entry) => {
           const video = entry.target;
           if (entry.isIntersecting) {
-            video.play().catch((e) => {
-              console.log("Autoplay prevented:", e);
-            });
+            video.play().catch(() => {});
           } else {
             video.pause();
           }

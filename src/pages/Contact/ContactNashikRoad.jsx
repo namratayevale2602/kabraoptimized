@@ -17,8 +17,7 @@ import { useSEO } from "../../hooks/useSEO";
 import LocalBusinessSchema from "../../components/seo/LocalBusinessSchema";
 
 const ContactNashikRoad = () => {
-
-   useSEO("contactPanditColony");
+   useSEO("contactNashikRoad");
 
    // Add LocalBusiness schema data
   const localBusinessSchema = {
