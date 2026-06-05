@@ -1,5 +1,4 @@
-import React from "react";
-import { bg2, mobilebg } from "../../assets";
+import React, { lazy, Suspense } from "react";
 import { useHomeData } from "../../hooks/useHomeData";
 import HeroSection from "./HeroSection";
 import TopCategories from "./TopCategories";
@@ -7,14 +6,16 @@ import ShopByOccasion from "./ShopByOccasion";
 import CategorySlider from "./CategorySlider";
 import AboutUs from "./AboutUs";
 import ExclusiveCollection from "./ExclusiveCollection";
-import StatsSection from "./StatsSection";
-import FaqSection from "./FaqSection";
 import { SareesCategory } from "./SareesCategory";
 import { LehengasCategory } from "./LehengasCategory";
 import { SalwarSuitsCategory } from "./SalwarSuitsCategory";
 import TrendingCollections from "./TrendingCollections";
-import BlogCards from "../blog/BlogCards";
-import Testimonial from "./Testimonial";
+
+// Below-fold sections — lazy-loaded so they are excluded from the initial JS chunk
+const Testimonial  = lazy(() => import("./Testimonial"));
+const BlogCards    = lazy(() => import("../blog/BlogCards"));
+const StatsSection = lazy(() => import("./StatsSection"));
+const FaqSection   = lazy(() => import("./FaqSection"));
 
 const Home = () => {
   const { homeData, loading: homeLoading, error: homeError } = useHomeData();
@@ -30,26 +31,9 @@ const Home = () => {
 
   return (
     <section className="relative bg-white overflow-hidden">
-      {/* Background images — absolute so they never cause layout shift */}
-      <img
-        src={bg2}
-        alt=""
-        aria-hidden="true"
-        fetchPriority="high"
-        loading="eager"
-        decoding="async"
-        className="absolute inset-0 z-0 w-full h-full object-cover object-center opacity-25 pointer-events-none select-none"
-      />
-      <img
-        src={mobilebg}
-        alt=""
-        aria-hidden="true"
-        fetchPriority="high"
-        loading="eager"
-        decoding="async"
-        className="absolute inset-0 z-0 w-full h-full object-cover object-center opacity-20 pointer-events-none select-none lg:hidden"
-      />
-
+      {/* Background images are rendered by Layout.jsx for the whole app —
+          no duplicate img tags here (removing them saves bandwidth + priority
+          competition with the hero banner). */}
       <div className="relative z-10">
         <HeroSection         initialBanners={d("heroBanners")} />
         <AboutUs             initialData={d("about")} />
@@ -61,10 +45,13 @@ const Home = () => {
         <ShopByOccasion      initialData={d("occasions")} />
         <CategorySlider      initialData={d("categorySliders")} />
         <ExclusiveCollection initialData={d("instagramReels")} />
-        <Testimonial />
-        <BlogCards           initialData={d("blogs")} />
-        <StatsSection        initialData={d("stats")} />
-        <FaqSection          initialData={d("faqs")} />
+        {/* Below-fold sections — loaded lazily after main content is visible */}
+        <Suspense fallback={null}>
+          <Testimonial />
+          <BlogCards    initialData={d("blogs")} />
+          <StatsSection initialData={d("stats")} />
+          <FaqSection   initialData={d("faqs")} />
+        </Suspense>
       </div>
     </section>
   );

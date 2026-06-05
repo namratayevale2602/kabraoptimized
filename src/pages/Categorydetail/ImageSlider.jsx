@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { resizeUrl, buildSrcSet } from "../../utils/imgResize";
 
 const ImageSlider = ({ images, productName, autoScrollInterval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -145,8 +146,12 @@ const ImageSlider = ({ images, productName, autoScrollInterval = 5000 }) => {
         onTouchEnd={handleTouchEnd}
       >
         <img
-          src={images[currentIndex]}
+          src={resizeUrl(images[currentIndex], 600)}
+          srcSet={buildSrcSet(images[currentIndex], [300, 600, 900])}
+          sizes="(max-width: 768px) 100vw, 50vw"
           alt={`${productName} - ${currentIndex + 1}`}
+          width={600}
+          height={600}
           className="w-full h-full object-fill"
           loading="lazy"
         />

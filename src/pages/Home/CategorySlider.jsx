@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../service/api";
+import { resizeUrl, buildSrcSet } from "../../utils/imgResize";
 
 // Auto-scroll handled entirely by CSS animation. No setInterval / scrollLeft reads.
 export default function CategorySlider({ initialData = undefined }) {
@@ -78,7 +79,9 @@ export default function CategorySlider({ initialData = undefined }) {
                 className="relative w-full h-[200px] sm:h-[340px] md:h-[460px] overflow-hidden rounded-[100px] md:rounded-[120px] cursor-pointer group"
               >
                 <img
-                  src={item.image}
+                  src={resizeUrl(item.image, 460)}
+                  srcSet={buildSrcSet(item.image, [200, 400, 600])}
+                  sizes="(max-width: 640px) 150px, (max-width: 768px) 220px, 340px"
                   loading="lazy"
                   alt={item.alt || item.title || `Category ${item.id}`}
                   width={460}

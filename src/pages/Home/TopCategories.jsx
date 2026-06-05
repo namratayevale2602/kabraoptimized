@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../service/api";
+import { resizeUrl, buildSrcSet } from "../../utils/imgResize";
 
 const TopCategories = ({ initialData = undefined }) => {
   const [categories, setCategories] = useState([]);
@@ -76,11 +77,13 @@ const TopCategories = ({ initialData = undefined }) => {
                 >
                   <div className="relative h-[360px]">
                     <img
-                      src={category.image}
+                      src={resizeUrl(category.image, 600)}
+                      srcSet={buildSrcSet(category.image, [300, 600, 900])}
+                      sizes="33vw"
                       loading="lazy"
                       alt={category.name}
-                      width={1024}
-                      height={864}
+                      width={600}
+                      height={500}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/60 via-black/20 to-transparent">
@@ -106,11 +109,13 @@ const TopCategories = ({ initialData = undefined }) => {
                 >
                   <div className="relative h-[300px]">
                     <img
-                      src={categories[0].image}
+                      src={resizeUrl(categories[0].image, 600)}
+                      srcSet={buildSrcSet(categories[0].image, [300, 600])}
+                      sizes="50vw"
                       loading="lazy"
                       alt={categories[0].name}
-                      width={1024}
-                      height={864}
+                      width={600}
+                      height={600}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/60 via-black/20 to-transparent">
@@ -132,11 +137,13 @@ const TopCategories = ({ initialData = undefined }) => {
                   >
                     <div className="relative h-[140px]">
                       <img
-                        src={category.image}
+                        src={resizeUrl(category.image, 400)}
+                        srcSet={buildSrcSet(category.image, [300, 600])}
+                        sizes="50vw"
                         loading="lazy"
                         alt={category.name}
-                        width={1024}
-                        height={864}
+                        width={400}
+                        height={280}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/60 via-black/20 to-transparent">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../service/api";
+import { resizeUrl, buildSrcSet } from "../../utils/imgResize";
 
 export const SareesCategory = ({ initialData = undefined }) => {
   const [subCategories, setSubCategories] = useState([]);
@@ -62,10 +63,12 @@ export const SareesCategory = ({ initialData = undefined }) => {
               className="relative w-full h-[400px] sm:h-[450px] lg:h-full shadow-2xl overflow-hidden group cursor-pointer"
             >
               <img
-                src={leftCategory.image}
+                src={resizeUrl(leftCategory.image, 800)}
+                srcSet={buildSrcSet(leftCategory.image, [400, 800, 1200])}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 alt={leftCategory.name}
-                width={1664}
-                height={1664}
+                width={800}
+                height={1200}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent flex items-end p-4 md:p-8">
@@ -84,10 +87,13 @@ export const SareesCategory = ({ initialData = undefined }) => {
                 className="relative aspect-square shadow-xl overflow-hidden group cursor-pointer"
               >
                 <img
-                  src={item.image || leftCategory.image}
+                  src={resizeUrl(item.image || leftCategory.image, 600)}
+                  srcSet={buildSrcSet(item.image || leftCategory.image, [300, 600, 900])}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   alt={item.name}
-                  width={1024}
-                  height={1024}
+                  width={600}
+                  height={600}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent flex items-end p-2 sm:p-3">

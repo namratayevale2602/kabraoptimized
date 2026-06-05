@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://back.kabraemporium.com/api";
-export const IMAGE_PATH   = import.meta.env.VITE_IMAGE_PATH   || "https://back.kabraemporium.com";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://server.kabraemporium.com/api";
+export const IMAGE_PATH   = import.meta.env.VITE_IMAGE_PATH   || "https://server.kabraemporium.com";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,

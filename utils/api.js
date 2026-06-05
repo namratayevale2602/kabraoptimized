@@ -1,8 +1,8 @@
 // utils/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'https://back.kabraemporium.com/api';
-const FILE_URL = 'https://back.kabraemporium.com/uploads'
+const API_BASE_URL = 'https://server.kabraemporium.com/api';
+const FILE_URL = 'https://server.kabraemporium.com/uploads'
 
 const api = axios.create({
   baseURL: API_BASE_URL,

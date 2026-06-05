@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../service/api";
+import { resizeUrl, buildSrcSet } from "../../utils/imgResize";
 import {
   shopbyoccasion1,
   shopbyoccasion2,
@@ -153,7 +154,9 @@ export default function ShopByOccasion({ initialData = undefined }) {
         {occasions.map((item) => (
           <div key={item.id} className="relative overflow-hidden group cursor-pointer justify-center">
             <img
-              src={item.img}
+              src={resizeUrl(item.img, 400)}
+              srcSet={buildSrcSet(item.img, [200, 400, 600])}
+              sizes="50vw"
               loading="lazy"
               alt={item.title}
               width={400}
@@ -171,7 +174,9 @@ export default function ShopByOccasion({ initialData = undefined }) {
           {occasions.slice(0, 3).map((item) => (
             <div key={item.id} className="relative overflow-hidden group cursor-pointer">
               <img
-                src={item.img}
+                src={resizeUrl(item.img, 600)}
+                srcSet={buildSrcSet(item.img, [300, 600])}
+                sizes="33vw"
                 loading="lazy"
                 alt={item.title}
                 width={600}
@@ -186,7 +191,9 @@ export default function ShopByOccasion({ initialData = undefined }) {
           {occasions.slice(3, 7).map((item) => (
             <div key={item.id} className="relative overflow-hidden group cursor-pointer">
               <img
-                src={item.img}
+                src={resizeUrl(item.img, 500)}
+                srcSet={buildSrcSet(item.img, [250, 500])}
+                sizes="25vw"
                 loading="lazy"
                 alt={item.title}
                 width={500}

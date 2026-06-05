@@ -40,7 +40,7 @@ export default function AboutUsText() {
     }
     
     // Otherwise, construct the full URL
-    return `https://back.kabraemporium.com${aboutData.image_url}`;
+    return `https://server.kabraemporium.com${aboutData.image_url}`;
   };
 
   if (loading) {

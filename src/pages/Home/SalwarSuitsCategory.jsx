@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../service/api";
+import { resizeUrl, buildSrcSet } from "../../utils/imgResize";
 
 export const SalwarSuitsCategory = ({ initialData = undefined }) => {
   const navigate = useNavigate();
@@ -60,10 +61,12 @@ export const SalwarSuitsCategory = ({ initialData = undefined }) => {
               onClick={() => navigate(`/Categorydetail/salwarsuite`)}
             >
               <img
-                src={leftCategory.image}
+                src={resizeUrl(leftCategory.image, 800)}
+                srcSet={buildSrcSet(leftCategory.image, [400, 800, 1200])}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 alt={leftCategory.name}
-                width={1664}
-                height={1664}
+                width={800}
+                height={1200}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent flex items-end p-4 md:p-8">
@@ -82,10 +85,13 @@ export const SalwarSuitsCategory = ({ initialData = undefined }) => {
                 onClick={() => navigate(`/Categorydetail/salwarsuite`)}
               >
                 <img
-                  src={item.image || leftCategory.image}
+                  src={resizeUrl(item.image || leftCategory.image, 600)}
+                  srcSet={buildSrcSet(item.image || leftCategory.image, [300, 600, 900])}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   alt={item.name}
-                  width={1024}
-                  height={1024}
+                  width={600}
+                  height={600}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent flex items-end p-2 sm:p-3">

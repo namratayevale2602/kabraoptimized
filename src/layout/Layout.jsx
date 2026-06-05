@@ -13,7 +13,9 @@ import PopupManager from "../components/popup/PopupManager";
 function Layout() {
   return (
     <div className="relative min-h-screen">
-      {/* Background Image with lower opacity */}
+      {/* Background Image with lower opacity.
+          backgroundAttachment:fixed removed — it blocks GPU layer compositing
+          and causes full-page repaints on every scroll event on mobile. */}
       <div
         className="fixed inset-0 z-0 opacity-25"
         style={{
@@ -21,7 +23,6 @@ function Layout() {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center center",
           backgroundSize: "cover",
-          backgroundAttachment: "fixed",
         }}
       />
 
@@ -33,7 +34,6 @@ function Layout() {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center center",
           backgroundSize: "cover",
-          backgroundAttachment: "fixed",
         }}
       />
 

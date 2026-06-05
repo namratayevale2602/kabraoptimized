@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../service/api";
+import { resizeUrl, buildSrcSet } from "../../utils/imgResize";
 
 // Auto-scroll is CSS-only (animate-carousel class). No rAF loop, no forced reflows.
 const TrendingCollections = ({ initialData = undefined }) => {
@@ -71,10 +72,12 @@ const TrendingCollections = ({ initialData = undefined }) => {
           <div key={`${item.id}-${index}`} className="shrink-0 w-[220px] sm:w-[250px] md:w-[280px] lg:w-[300px]">
             <div className="relative aspect-3/4 shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 group cursor-default">
               <img
-                src={item.src}
+                src={resizeUrl(item.src, 600)}
+                srcSet={buildSrcSet(item.src, [300, 600, 900])}
+                sizes="(max-width: 640px) 220px, (max-width: 1024px) 250px, 300px"
                 alt={item.alt}
-                width={832}
-                height={1108}
+                width={600}
+                height={800}
                 className="w-full h-full object-cover pointer-events-none"
                 loading="lazy"
                 draggable="false"

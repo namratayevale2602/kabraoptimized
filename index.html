@@ -28,18 +28,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <!-- Preconnect for fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Only load fonts used in CSS: Urbanist (body) + Cormorant Upright (h1/h2).
-       Poppins and Jost were removed — neither appears in index.css declarations. -->
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap"
-    onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap">
-  </noscript>
+  <!-- Fonts are self-hosted in /fonts/ — no external DNS round-trips needed.
+       @font-face declarations live in src/index.css.
+       Preload the Urbanist latin file (body text — highest priority font). -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/urbanist-latin.woff2">
   <!-- Preconnect for API/image origin — must include crossorigin for CORS image requests -->
   <link rel="preconnect" href="https://server.kabraemporium.com" crossorigin>
   <!-- Structured data for LocalBusiness (Kabra Emporium) -->
@@ -88,19 +80,31 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W555V3T6"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- Meta Pixel — placed before root so fbevents.js starts downloading before React,
-       keeping it out of the FCP-to-TTI (TBT) window on fast connections. -->
+  <!-- Pre-fire home-data fetch before React loads — eliminates the API waterfall
+       that causes LCP to wait until after JS parse + React mount + API round-trip.
+       %VITE_API_BASE_URL% is replaced by Vite at build time from .env -->
   <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '861128360262396');
-  fbq('track', 'PageView');
+    window.__homeDataPromise = fetch('%VITE_API_BASE_URL%/home-data')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .catch(function(){ return null; });
+  </script>
+
+  <!-- Meta Pixel — deferred until idle so it does not block FCP/LCP. -->
+  <script>
+  function _loadMetaPixel(){
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '861128360262396');
+    fbq('track', 'PageView');
+  }
+  if(window.requestIdleCallback){requestIdleCallback(_loadMetaPixel);}
+  else{window.addEventListener('load', _loadMetaPixel);}
   </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=861128360262396&ev=PageView&noscript=1"

@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 // Injects <link rel="preload"> for the two LCP background images so
 // the browser can start fetching them before React renders.
@@ -39,5 +40,17 @@ function preloadLcpImages() {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), preloadLcpImages()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    preloadLcpImages(),
+    ViteImageOptimizer({
+      test: /\.(jpe?g|png|gif|webp|avif)$/i,
+      webp: { quality: 78 },
+      png:  { quality: 78 },
+      jpeg: { quality: 78 },
+      jpg:  { quality: 78 },
+      logStats: true,
+    }),
+  ],
 });
